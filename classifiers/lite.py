@@ -20,7 +20,6 @@ class LITE:
         n_classes,
         batch_size=64,
         n_filters=32,
-        use_residual=False,
         kernel_size=41,
         n_epochs=1500,
         verbose=True,
@@ -38,7 +37,6 @@ class LITE:
 
         self.n_filters = n_filters
 
-        self.use_residual = use_residual
         self.use_custom_filters = use_custom_filters
         self.use_dilation = use_dilation
         self.use_multiplexing = use_multiplexing
@@ -202,7 +200,6 @@ class LITE:
         n_filters,
         stride=1,
         activation="relu",
-        input_residual=None,
     ):
 
         x = tf.keras.layers.SeparableConv1D(
@@ -213,17 +210,8 @@ class LITE:
             dilation_rate=dilation_rate,
             use_bias=False,
         )(input_tensor)
+
         x = tf.keras.layers.BatchNormalization()(x)
-
-        if input_residual is not None:
-
-            residual = tf.keras.layers.Conv1D(
-                filters=n_filters, kernel_size=1, padding="same", use_bias=False
-            )(input_residual)
-            residual = tf.keras.layers.BatchNormalization()(residual)
-
-            x = tf.keras.layers.Add()([x, residual])
-
         x = tf.keras.layers.Activation(activation=activation)(x)
 
         return x
@@ -256,23 +244,12 @@ class LITE:
             if self.use_dilation:
                 dilation_rate = 2 ** (i + 1)
 
-            if i == 1 and self.use_residual:
-                x = self._fcn_module(
-                    input_tensor=input_tensor,
-                    kernel_size=self.kernel_size // (2**i),
-                    n_filters=self.n_filters,
-                    dilation_rate=dilation_rate,
-                    input_residual=reshape_layer,
-                )
-
-            else:
-                x = self._fcn_module(
-                    input_tensor=input_tensor,
-                    kernel_size=self.kernel_size // (2**i),
-                    n_filters=self.n_filters,
-                    dilation_rate=dilation_rate,
-                    input_residual=None,
-                )
+            x = self._fcn_module(
+                input_tensor=input_tensor,
+                kernel_size=self.kernel_size // (2**i),
+                n_filters=self.n_filters,
+                dilation_rate=dilation_rate,
+            )
 
             input_tensor = x
 
