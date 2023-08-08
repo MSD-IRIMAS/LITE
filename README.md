@@ -5,6 +5,11 @@ This work was done by [Ali Ismail-Fawaz](https://hadifawaz1999.github.io/), [Max
 
 ## The LITE architecture
 
+The same LITE architecture is then used to form an ensemble of five LITE models, names LITETime.
+<p align="center" width="50%">
+<img src="images/LITE.png" alt="lite"/>
+</p>
+
 ## Usage of the code
 
 To use this code, running the ```main.py``` file with the following options in the parsed as arguments:
