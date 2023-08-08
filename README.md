@@ -30,6 +30,11 @@ The only change to be done in the code is the ```folder_path``` in the `utils/ut
 
 ### Average performance and FLOPS comparison
 
+The following figure shows the comparison between LITE and state of the art complex deep learners. The comparison consists on the average performance and the number FLOPS.
+<p align="center" width="100%">
+<img src="images/summary_with_flops.png" alt="flops"/>
+</p>
+
 ### LITE 1v1 with FCN, ResNet and Inception
 
 ### LITETime 1v1 with ROCKET and InceptionTime
