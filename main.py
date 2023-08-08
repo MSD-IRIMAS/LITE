@@ -13,7 +13,6 @@ from sklearn.metrics import accuracy_score
 
 
 def get_args():
-
     parser = argparse.ArgumentParser(
         description="Choose to apply which classifier on which dataset with number of runs."
     )
@@ -52,7 +51,6 @@ def get_args():
 
 
 if __name__ == "__main__":
-
     args = get_args()
 
     output_directory_parent = args.output_directory
@@ -80,7 +78,6 @@ if __name__ == "__main__":
         if args.dataset in file_names:
             exit()
     else:
-
         if args.track_emissions:
             df = pd.DataFrame(
                 columns=[
@@ -111,7 +108,6 @@ if __name__ == "__main__":
     Scores = []
 
     if args.track_emissions:
-
         training_time = []
         testing_time = []
 
@@ -119,7 +115,6 @@ if __name__ == "__main__":
         energy_consumption = []
 
     for _run in range(args.runs):
-
         output_directory = output_directory_parent + "run_" + str(_run) + "/"
         create_directory(output_directory)
         output_directory = output_directory + args.dataset + "/"
@@ -130,12 +125,12 @@ if __name__ == "__main__":
                 output_directory=output_directory,
                 length_TS=length_TS,
                 n_classes=len(np.unique(ytrain)),
+                n_epochs=1,
             )
         else:
             raise ValueError("Choose an existing classifier.")
 
         if not os.path.exists(output_directory + "loss.pdf"):
-
             if args.track_emissions:
                 dict_emissions = clf.fit_and_track_emissions(
                     xtrain=xtrain, ytrain=ytrain, xval=xtest, yval=ytest, plot_test=True
@@ -146,7 +141,6 @@ if __name__ == "__main__":
                 )
 
         else:
-
             if args.track_emissions:
                 with open(output_directory + "dict_emissions.json") as json_file:
                     dict_emissions = json.load(json_file)
@@ -174,31 +168,24 @@ if __name__ == "__main__":
     acc_Time = accuracy_score(y_true=ytest, y_pred=ypred, normalize=True)
 
     if args.track_emissions:
-
-        df = df.append(
-            {
-                "dataset": args.dataset,
-                args.classifier + "-mean": np.mean(Scores),
-                args.classifier + "-std": np.std(Scores),
-                args.classifier + "Time": acc_Time,
-                "Training Time-mean": np.mean(training_time),
-                "Testing Time-mean": np.mean(testing_time),
-                "CO2 Consumption-mean": np.mean(co2_consumption),
-                "Energy Consumption-mean": np.mean(energy_consumption),
-                "Country": str(dict_emissions["country_name"]),
-                "Region": str(dict_emissions["region"]),
-            },
-            ignore_index=True,
-        )
+        df.loc[len(df)] = {
+            "dataset": args.dataset,
+            args.classifier + "-mean": np.mean(Scores),
+            args.classifier + "-std": np.std(Scores),
+            args.classifier + "Time": acc_Time,
+            "Training Time-mean": np.mean(training_time),
+            "Testing Time-mean": np.mean(testing_time),
+            "CO2 Consumption-mean": np.mean(co2_consumption),
+            "Energy Consumption-mean": np.mean(energy_consumption),
+            "Country": str(dict_emissions["country_name"]),
+            "Region": str(dict_emissions["region"]),
+        }
     else:
-        df = df.append(
-            {
-                "dataset": args.dataset,
-                args.classifier + "-mean": np.mean(Scores),
-                args.classifier + "-std": np.std(Scores),
-                args.classifier + "Time": acc_Time,
-            },
-            ignore_index=True,
-        )
+        df.loc[len(df)] = {
+            "dataset": args.dataset,
+            args.classifier + "-mean": np.mean(Scores),
+            args.classifier + "-std": np.std(Scores),
+            args.classifier + "Time": acc_Time,
+        }
 
     df.to_csv(output_directory_parent + "results_ucr.csv", index=False)

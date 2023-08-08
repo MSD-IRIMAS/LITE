@@ -11,7 +11,7 @@ def create_directory(directory_path):
 
 def load_data(file_name):
 
-    folder_path = "/mnt/nfs/ceres/bla/archives/new/UCRArchive_2018/UCRArchive_2018/"
+    folder_path = "/home/afawaz/phd/datasets/UCRArchive_2018/"
     folder_path += file_name + "/"
 
     train_path = folder_path + file_name + "_TRAIN.tsv"
