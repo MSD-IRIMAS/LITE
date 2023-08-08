@@ -37,11 +37,37 @@ The following figure shows the comparison between LITE and state of the art comp
 
 ### LITE 1v1 with FCN, ResNet and Inception
 
+The following compares LITE with FCN, ResNet and Inception using the accuracy performance on the test set of the 128 datasts of the UCR archive.
+
+<p align="center" width="100%">
+<img src="images/results_lite.png" alt="1v1lite"/>
+</p>
+
 ### LITETime 1v1 with ROCKET and InceptionTime
+
+The following compares LITE with FCN, ResNet and Inception using the accuracy performance on the test set of the 128 datasts of the UCR archive.
+
+<p align="center" width="50%">
+<img src="images/results_litetime.png" alt="1v1litetime"/>
+</p>
 
 ### LITETime MCM with SOTA
 
+The following 1v1 and multi-comparison matrix shows the performance of LITETime with respect to the SOTA models for Time Series Classification.
+
+The following compares LITE with FCN, ResNet and Inception using the accuracy performance on the test set of the 128 datasts of the UCR archive.
+
+<p align="center" width="100%">
+<img src="images/litetime1v1-mcm.png" alt="mcm-litetime"/>
+</p>
+
 ### CD Diagram
+
+The following Critical Difference Diagram (CDD) shows the comparison following the average rank between classifiers.
+
+<p align="center" width="100%">
+<img src="images/cdd.png" alt="cdd"/>
+</p>
 
 ## Requirements
 
