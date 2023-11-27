@@ -26,9 +26,25 @@ To use this code, running the ```main.py``` file with the following options in t
 
 The only change to be done in the code is the ```folder_path``` in the `utils/utils.py` file, this line. This directory should point to the parent directory of the UCR Archive datasets.
 
+### Using [aeon-toolkit](https://github.com/aeon-toolkit/aeon) to Train a LITETimeClassifier on your DATA
+
+When using aeon, simply load your data and create an instance of a LITETime classifier and train it <br>
+
+```
+from aeon.datasets import load_classification
+from aeon.classification.deep_learning import LITETimeClassifier
+
+xtrain, ytrain, _ = load_classification(name="Coffee", split="train")
+xtest, ytest, _ = load_classification(name="Coffee", split="test")
+
+clf = LITETimeClassifier(n_classifiers=5)
+clf.fit(xtrain, ytrain)
+print(clf.score(xtest, ytest)
+```
+
 ## Results
 
-Results can be found in the [results.csv](https://github.com/MSD-IRIMAS/LITE/blob/main/results.csv) file for FCN, ResNet, Inception, InceptionTime, ROCKET, MultiROCKET, LITE and LITETime. For non-ensemble methods, results are averaged over five runs, for ensemble methods, we ensemble the five runs.
+Results can be found in the [results.csv](https://github.com/MSD-IRIMAS/LITE/blob/main/results.csv) file for [FCN](https://github.com/hfawaz/dl-4-tsc/blob/master/classifiers/fcn.py), [ResNet](https://github.com/hfawaz/dl-4-tsc/blob/master/classifiers/resnet.py), [Inception](https://github.com/hfawaz/InceptionTime), [InceptionTime](https://github.com/hfawaz/InceptionTime), [ROCKET](https://github.com/angus924/rocket), [MultiROCKET](https://github.com/ChangWeiTan/MultiRocket), LITE and LITETime. For non-ensemble methods, results are averaged over five runs, for ensemble methods, we ensemble the five runs.
 
 ### Average performance and FLOPS comparison
 
