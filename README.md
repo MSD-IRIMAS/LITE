@@ -28,6 +28,8 @@ The only change to be done in the code is the ```folder_path``` in the `utils/ut
 
 ## Results
 
+Results can be found in the [results.csv](https://github.com/MSD-IRIMAS/LITE/blob/main/results.csv) file for FCN, ResNet, Inception, InceptionTime, ROCKET, MultiROCKET, LITE and LITETime. For non-ensemble methods, results are averaged over five runs, for ensemble methods, we ensemble the five runs.
+
 ### Average performance and FLOPS comparison
 
 The following figure shows the comparison between LITE and state of the art complex deep learners. The comparison consists on the average performance and the number FLOPS.
