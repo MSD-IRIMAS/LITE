@@ -1,6 +1,7 @@
 # LITE: Light Inception with boosTing tEchniques for Time Series Classification
 
 This is the source code of our paper "[LITE: Light Inception with boosTing tEchniques for Time Series Classification](https://germain-forestier.info/publis/dsaa2023.pdf)" accepted at the 10th IEEE International Conference on Data Science and Advanced Analytics ([DSAA 2023](https://conferences.sigappfr.org/dsaa2023/)) in the  Learning from Temporal Data ([LearnTeD](https://dsaa2023.inesctec.pt/)) special session track. <br>
+This is the source code for the extended version of the DSAA 2023 paper, "[Look into the LITE in deep learning for time series classification](https://link.springer.com/article/10.1007/s41060-024-00708-5)" published in the [International Journal of Data Science and Analytics](https://link.springer.com/journal/41060) in their special issue on [Learning from Temporal Data](https://link.springer.com/collections/dibidcifjj).
 This work was done by [Ali Ismail-Fawaz](https://hadifawaz1999.github.io/), [Maxime Devanne](https://maxime-devanne.com/), [Stefano Berretti](www.micc.unifi.it/berretti/), [Jonathan Weber](https://www.jonathan-weber.eu/) and [Germain Forestier](https://germain-forestier.info/).
 
 ## The LITE architecture
@@ -28,7 +29,7 @@ The only change to be done in the code is the ```folder_path``` in the `utils/ut
 
 ### Using [aeon-toolkit](https://github.com/aeon-toolkit/aeon) to Train a LITETimeClassifier on your DATA
 
-When using aeon, simply load your data and create an instance of a LITETime classifier and train it <br>
+When using aeon, simply load your data and create an instance of a LITETime classifier and train it, as well as LITEMVTime classifier for multivariate time series <br>
 
 ```
 from aeon.datasets import load_classification
@@ -37,7 +38,13 @@ from aeon.classification.deep_learning import LITETimeClassifier
 xtrain, ytrain, _ = load_classification(name="Coffee", split="train")
 xtest, ytest, _ = load_classification(name="Coffee", split="test")
 
+# using LITETime
 clf = LITETimeClassifier(n_classifiers=5)
+clf.fit(xtrain, ytrain)
+print(clf.score(xtest, ytest)
+
+# using LITEMVTime for multivariate
+clf = LITETimeClassifier(n_classifiers=5, use_litemv=True)
 clf.fit(xtrain, ytrain)
 print(clf.score(xtest, ytest)
 ```
