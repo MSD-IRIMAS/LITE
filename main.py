@@ -8,6 +8,7 @@ import argparse
 from distutils.util import strtobool
 
 from classifiers.lite import LITE
+from classifiers.litemv import LITEMV
 
 from sklearn.metrics import accuracy_score
 
@@ -28,7 +29,7 @@ def get_args():
         "--classifier",
         help="which classifier to use",
         type=str,
-        choices=["LITE"],
+        choices=["LITE","LITEMV"],
         default="LITE",
     )
 
@@ -125,7 +126,12 @@ if __name__ == "__main__":
                 output_directory=output_directory,
                 length_TS=length_TS,
                 n_classes=len(np.unique(ytrain)),
-                n_epochs=1,
+            )
+        elif args.classifier == "LITEMV":
+            clf = LITEMV(
+                output_directory=output_directory,
+                length_TS=length_TS,
+                n_classes=len(np.unique(ytrain)),
             )
         else:
             raise ValueError("Choose an existing classifier.")
