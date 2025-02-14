@@ -99,7 +99,7 @@ The following Critical Difference Diagram (CDD) shows the comparison following t
 ```
 numpy
 pandas
-sklearn
+scikit-learn
 tensorflow
 matplotlib
 codecarbon
