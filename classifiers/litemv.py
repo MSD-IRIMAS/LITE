@@ -270,7 +270,7 @@ class LITEMV:
             monitor="loss", factor=0.5, patience=50, min_lr=1e-4
         )
         model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
-            filepath=self.output_directory + "best_model.hdf5",
+            filepath=self.output_directory + "best_model.keras",
             monitor="loss",
             save_best_only=True,
         )
@@ -451,7 +451,7 @@ class LITEMV:
     def predict(self, xtest, ytest):
 
         model = tf.keras.models.load_model(
-            self.output_directory + "best_model.hdf5", compile=False
+            self.output_directory + "best_model.keras", compile=False
         )
 
         start_time = time.time()
