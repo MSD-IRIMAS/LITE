@@ -86,8 +86,7 @@ class LITEMV:
 
             filter_[indices_ % 2 > 0] *= -1
 
-            conv = tf.keras.layers.Conv1D(
-                filters=1,
+            conv = tf.keras.layers.DepthwiseConv1D(
                 kernel_size=kernel_size,
                 padding="same",
                 use_bias=False,
@@ -121,8 +120,7 @@ class LITEMV:
             filter_[kernel_size : 5 * kernel_size // 4] = -filter_left
             filter_[5 * kernel_size // 4 :] = -filter_right
 
-            conv = tf.keras.layers.Conv1D(
-                filters=1,
+            conv = tf.keras.layers.DepthwiseConv1D(
                 kernel_size=kernel_size + kernel_size // 2,
                 padding="same",
                 use_bias=False,
