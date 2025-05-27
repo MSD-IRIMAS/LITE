@@ -1,3 +1,7 @@
+> ⚠️ **Alert:** If you are using this code with **Keras v3**, make sure you are using **Keras ≥ 3.6.0**.  
+> Earlier versions of Keras v3 do not honor `trainable=False`, which will result in **training hand-crafted filters** in **LITE** and **LITEMV** unexpectedly.
+
+
 # LITE: Light Inception with boosTing tEchniques for Time Series Classification
 
 This is the source code of our paper "[LITE: Light Inception with boosTing tEchniques for Time Series Classification](https://germain-forestier.info/publis/dsaa2023.pdf)" accepted at the 10th IEEE International Conference on Data Science and Advanced Analytics ([DSAA 2023](https://conferences.sigappfr.org/dsaa2023/)) in the  Learning from Temporal Data ([LearnTeD](https://dsaa2023.inesctec.pt/)) special session track. <br>
@@ -100,7 +104,8 @@ The following Critical Difference Diagram (CDD) shows the comparison following t
 numpy
 pandas
 scikit-learn
-tensorflow
+tensorflow>=2.16.1
+keras>=3.6.0
 matplotlib
 codecarbon
 ```
